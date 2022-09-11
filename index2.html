@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" class="js sidebar-visible light">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>RFM</title>
+    <!--link rel="icon" href="https://leanprover.github.io/lean4/doc/favicon.svg"-->
+    <link rel="stylesheet" href="highlight.css">
+    <style>
+        html {
+            background-color: #f6f7f6;
+        }
+    </style>
+</head>
+
+<body>        
+<pre><code class="language-lean hljs">
+<span class="hljs-keyword">def</span> <span class="hljs-title">name</span> := <span class="hljs-string">"Ramon Fernández Mir"</span>
+
+<span class="hljs-comment">-- The `main` function is the entry point of your program.</span>
+<span class="hljs-comment">-- Its type is `IO Unit` because it can perform `IO` operations (side effects).</span>
+<span class="hljs-theorem"><span class="hljs-keyword">def</span> <span class="hljs-title">m</span><span class="hljs-title">a</span><span class="hljs-title">i</span><span class="hljs-title">n</span> <span class="hljs-symbol">:</span></span> IO Unit :=
+  <span class="hljs-comment">-- Define a list of names</span>
+  <span class="hljs-keyword">let</span> names := [<span class="hljs-string">"Sebastian"</span>, <span class="hljs-string">"Leo"</span>, <span class="hljs-string">"Daniel"</span>]
+
+  <span class="hljs-comment">-- Map each name to a greeting</span>
+  <span class="hljs-keyword">let</span> greetings := names.map getGreeting
+
+  <span class="hljs-comment">-- Print the list of greetings</span>
+  <span class="hljs-keyword">for</span> greeting <span class="hljs-keyword">in</span> greetings <span class="hljs-keyword">do</span>
+    IO.println greeting
+</code>
+</pre>
+
+</body>
+</html>
