@@ -4,9 +4,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>RFM</title>
-    <script type="text/javascript" src="https://unpkg.com/@highlightjs/cdn-assets@10.4.1/highlight.min.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="https://unpkg.com/highlightjs-lean@1.1.0/dist/lean.min.js"></script>
     <link rel="stylesheet" href="https://leanprover.github.io/theorem_proving_in_lean4/highlight.css">
+    <script type="text/javascript" charset="UTF-8" src="https://leanprover.github.io/theorem_proving_in_lean4/highlight.js"></script>
     <script type="text/javascript">
         hljs.initHighlightingOnLoad();
     </script>
@@ -18,26 +17,46 @@
 </head>
 
 <body>        
-<pre><code class="lean hljs">/-- About -/
+<pre><code class="language-lean">/-- About -/
 
-def name := "Ramon Fernández Mir"
+def myName := "Ramon Fernández Mir"
 
-def position := "PhD student" @ "University of Edinburgh"
+def position := PhD [CS] "University of Edinburgh"
+-- def position := PgCert [Logic] "ILLC"
+-- def position := MEng [Maths, CS] "Imperial College London"
 
-def interests := [
-    "Formal Verification", 
+def researchInterests := [
+    "Formal Methods", 
     "Interactive Theorem Proving", 
     "Convex Optimisation", 
     "Hybrid Systems", 
     "Neural Network Verification"]
 
-/-- Publications -/ 
+/-- Publications -/
 
-def publications := []
+def publications := [
+    {
+        title   := "Schemes in Lean", 
+        authors := ["Kevin Buzzard", "Chris Hughes", "Kenny Lau", "Amelia Livingston", myName, "Scott Morrison"],
+        year    := 2021, 
+        type    := JournalPaper (journal := "Experimental Mathematics"),
+        url     := <a href="https://www.tandfonline.com/doi/full/10.1080/10586458.2021.1983489">"https://www.tandfonline.com/doi/full/10.1080/10586458.2021.1983489"</a>
+    }, 
+    {
+        title   := "Schemes in Lean", 
+        authors := [myName]
+        year    := 2019, 
+        type    := Thesis,
+        url     := <a href="/schemes-in-lean.pdf">"/schemes-in-lean.pdf"</a>
+    }]
 
 /-- Contact -/ 
 
-#eval 1243
+#eval let fst := "Ramon"; let lst := "FernandezMir"; s!"{fst}.{lst}@ed.ac.uk"
+
+#eval ""
+
+/-- Other -/
 </code></pre>
 
 </body>
