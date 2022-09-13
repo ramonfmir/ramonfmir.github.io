@@ -13,8 +13,9 @@
         html {
             background-color: #f6f7f6;
         }
-        a {
+        a, a:visited, a:active {
             text-decoration: none;
+            color: inherit;
         }
         a:hover {
             opacity: 0.5;
@@ -48,14 +49,14 @@ def publications := [
         authors := ["Kevin Buzzard", "Chris Hughes", "Kenny Lau", "Amelia Livingston", fullName, "Scott Morrison"],
         year    := 2021, 
         type    := JournalPaper (journal := "Experimental Mathematics"),
-        url     := <a href="https://www.tandfonline.com/doi/full/10.1080/10586458.2021.1983489" target="_blank">"https://www.tandfonline.com/doi/full/10.1080/10586458.2021.1983489"</a>
+        url     := <a href="https://www.tandfonline.com/doi/full/10.1080/10586458.2021.1983489" target="_blank">by <span class=".hljs-keyword">clicking_here</span></a>
     }, 
     {
         title   := "Schemes in Lean", 
         authors := [fullName]
         year    := 2019, 
         type    := Thesis,
-        url     := <a href="schemes-in-lean.pdf" target="_blank">"schemes-in-lean.pdf"</a>
+        url     := <a href="https://www.imperial.ac.uk/media/imperial-college/faculty-of-engineering/computing/public/1819-ug-projects/Fernandez-I-MirR-Schemes-in-Lean.pdf" target="_blank">by clicking_here</a>
     }]
 
 /-- Contact -/ 
