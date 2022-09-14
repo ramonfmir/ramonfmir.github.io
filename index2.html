@@ -26,7 +26,7 @@
 <body>        
 <pre><code class="language-lean">/-- About -/
 
-def fullName := "Ramon Fernández Mir"
+def myName := "Ramon Fernández Mir"
 
 def occupation := PhD [CS] "University of Edinburgh"
 -- def occupation := PgCert [Logic] "ILLC"
@@ -46,17 +46,17 @@ def researchInterests := [
 def publications := [
     {
         title   := "Schemes in Lean", 
-        authors := ["Kevin Buzzard", "Chris Hughes", "Kenny Lau", "Amelia Livingston", fullName, "Scott Morrison"],
+        authors := ["Kevin Buzzard", "Chris Hughes", "Kenny Lau", "Amelia Livingston", myName, "Scott Morrison"],
         year    := 2021, 
         type    := JournalPaper (journal := "Experimental Mathematics"),
-        url     := <a href="https://www.tandfonline.com/doi/full/10.1080/10586458.2021.1983489" target="_blank">by <span class=".hljs-keyword">clicking_here</span></a>
+        url     := by <a href="https://www.tandfonline.com/doi/full/10.1080/10586458.2021.1983489" target="_blank">clickingHere </a>
     }, 
     {
         title   := "Schemes in Lean", 
-        authors := [fullName]
+        authors := [myName]
         year    := 2019, 
         type    := Thesis,
-        url     := <a href="https://www.imperial.ac.uk/media/imperial-college/faculty-of-engineering/computing/public/1819-ug-projects/Fernandez-I-MirR-Schemes-in-Lean.pdf" target="_blank">by clicking_here</a>
+        url     := by <a href="https://www.imperial.ac.uk/media/imperial-college/faculty-of-engineering/computing/public/1819-ug-projects/Fernandez-I-MirR-Schemes-in-Lean.pdf" target="_blank">clickingHere</a>
     }]
 
 /-- Contact -/ 
