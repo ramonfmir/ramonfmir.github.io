@@ -1,9 +1,98 @@
-<html>
+<html lang="en">
+
 <head>
-  <title>Ramon Fernández Mir</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RFM</title>
+
+  <link rel="stylesheet" href="https://latex.now.sh/style.css">
+
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body>
-  <h1>Ramon Fernández Mir</h1>
-  <p>Email: </p>
+
+<body id="top">
+  <header>
+    <h1>Ramon Fernández Mir</h1>
+  </header>
+
+  <main>
+    <article>
+      <figure>
+        <img src="img/face.png" style="margin-left: 20px;"
+          loading="lazy" alt="RFM" width="200" height="200" align="right" />
+      </figure>
+      <h2>About me</h2>
+      <p>
+      I'm a third-year Computer Science PhD student at the University of Edinburgh. 
+      I work at the <a href="https://web.inf.ed.ac.uk/lfcs" target="_blank">LFCS</a> and the <a href="https://aiml.inf.ed.ac.uk/" target="_blank">AIML</a> under the supervision of <a href="https://homepages.inf.ed.ac.uk/pbj/" target="_blank">Dr Paul Jackson</a>. 
+      Previously, I studied Maths and Computer Science at Imperial College London and Logic at the ILLC.
+      </p>
+
+      <p>
+      Research interests: 
+      <ul>
+        <li>Formal Verification.</li> 
+        <li>Interactive Theorem Proving.</li>
+        <li>Convex Optimisation.</li>
+        <li>Hybrid Systems.</li>
+      </ul>
+      </p>
+
+      <p>
+      E-mail: <code>{name}.{surnames}@ed.ac.uk</code> | <a href="https://github.com/ramonfmir" target="_blank">Github</a> | <a href="https://scholar.google.com/citations?user=feIpi5IAAAAJ&hl=en" target="_blank">Google Scholar</a> | <a href="https://www.linkedin.com/in/ramonfmir/" target="_blank">LinkedIn</a>
+      </p>
+
+      <h2>Publications</h2>
+
+      <h5>Verified reductions for optimization</h5>
+      <p>
+      <i>A. Bentkamp, R. Fernández Mir, J. Avigad</i><br>
+      TACAS 2023 (<a href="https://arxiv.org/pdf/2301.09347.pdf" target="_blank">pdf</a> | <a href="https://github.com/verified-optimization/CvxLean" target="_blank">code</a>)
+      <div>
+        $$
+        \begin{aligned}
+        &\text{maximize}   && \sqrt{x - y} \\
+        &\text{subject to} && y = 2x - 3 \land x^2 \leq 2 \land 0 \leq x - y \\
+        \end{aligned}
+        $$
+      </div>
+      </p>
+
+      <h5>Schemes in Lean</h5>
+      <p>
+      <i>K. Buzzard, C. Hughes, K. Lau, R. Fernándex Mir, A. Livingston, S. Morrison</i><br>
+      Journal of Experimental Mathematics 2021 (<a href="https://www.tandfonline.com/doi/full/10.1080/10586458.2021.1983489" target="_blank">url</a> | <a href="https://arxiv.org/pdf/2101.02602.pdf" target="_blank">pdf</a> | <a href="https://www.imperial.ac.uk/media/imperial-college/faculty-of-engineering/computing/public/1819-ug-projects/Fernandez-I-MirR-Schemes-in-Lean.pdf" target="_blank">thesis</a> | <a href="https://github.com/ramonfmir/lean-scheme" target="_blank">code</a>)
+      <div>
+        $$
+        0\to R[1/f]\to\bigoplus_i(R[1/f])[1/f_i]\to\bigoplus_{i,j}(R[1/f])[1/f_if_j]
+        $$
+      </div>
+      </p>
+    
+      <h5>Neurosymbolic AI for reasoning on graph structures: a survey</h5>
+      <p>
+      <i>L. DeLong, R. Fernández Mir, M. Whyte, Z. Ji, J. Fleuriot</i><br>
+      In preparation
+      <div>
+        $$
+        \def\sc#1{\dosc#1\csod} \def\dosc#1#2\csod{{\rm #1{\small #2}}}
+        \sc{SYM} \ \sc{NN} \ \sc{SYM} \quad 
+        \sc{SYM}[\sc{NN}] \quad 
+        \sc{NN};\sc{SYM} \quad 
+        \sc{NN}\colon\sc{SYM}\rightarrow\sc{NN} \quad
+        \sc{NN}_{\sc{SYM}} \quad
+        \sc{NN}[\sc{SYM}] \quad
+        $$
+      </div>
+      </p>
+
+      <h5>Machine learned premises for Lean</h5>
+      <p>
+      <i>B. Piotrowski, R. Fernández Mir, E. Ayers</i><br>
+      In preparation (<a href="https://github.com/BartoszPiotrowski/lean-premise-selection">code</a>)
+      </p>
+    </article>
+  </main>
 </body>
+
 </html>
