@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>RFM</title>
+    <link rel="stylesheet" href="https://leanprover.github.io/theorem_proving_in_lean4/highlight.css">
+    <script type="text/javascript" charset="UTF-8" src="https://leanprover.github.io/theorem_proving_in_lean4/highlight.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+    <style>
+      html {
+          background-color: #f6f7f6;
+      }
+  </style>
+</head>
+<body>        
+<pre><code class="language-lean">/- 
+Author: Ramon Fernández Mir
+Date: 4th May 2022
+-/
+
+import CvxLean.Syntax.Minimization
+import CvxLean.Tactic.Solver.Conic
+
+open CvxLean
+
+/-  # Verified Optimization # 
+This is the continuation of Alex's talk last week. I'll focus on how to solve 
+the optimization problem once it's been transformed and reduced to conic form. 
+First, let's recall a couple of things. What was the idea?
+We start with problems that look like:
+    minimize          cᵀx
+    subject to   exp(y) ≤ log(a√x + b)
+                ax + by = d
+Then apply the `dcp` tactic and end up with a conic optimization problem:
+    minimize          cᵀx
+    subject to      Ax = b
+                Gx - h ∈ K <-- 🍦
+Now we can call an external solver and get a result. We will illustrate how to
+do that using an example. We will only look at semidefinite programs today.
+-/
+
+open Matrix
+
+#print PSDCone -- M ∈ 𝒫 ↔ ∀x. xᵀMx ≥ 0 ↔ M = LᵀL
+
+/- **Semidefinite Programming**
+We have the following problem:
+    minimize       ⟨C, X⟩
+    subject to   ⟨A, X⟩ = b
+                    X ≽ 0
+Notes:
+* New syntax following last week's suggestions.
+* Attribute `optimizationParam`.
+-/
+
+open Minimization
+
+@[optimizationParam]
+noncomputable def C : Matrix (Finₓ 2) (Finₓ 2) ℝ :=
+  fun i j => #[#[1, 0], #[0, 1]][i.val][j.val]
+
+@[optimizationParam]
+noncomputable def A : Matrix (Finₓ 2) (Finₓ 2) ℝ :=
+  fun i j => #[#[1, 0], #[0, 1]][i.val][j.val]
+
+@[optimizationParam]
+noncomputable def b : ℝ := 8.0
+
+noncomputable def problem : Minimization (Matrix (Finₓ 2) (Finₓ 2) ℝ) ℝ :=
+  optimization (X : Matrix (Finₓ 2) (Finₓ 2) ℝ)
+    minimize posDefObjective C X
+    subject to 
+      A : affineConstraint A X b
+      P : PSDCone X
+
+/- **Conic Benchmark Form (CBF)**
+The first step to find a solution is to convert it to a format that a convex
+optimization solver can understand. In our case, we will use MOSEK.
+Notes:
+* See `solver/test.cbf`.
+-/
+
+open Mosek
+
+#check CBF.Problem
+
+#check SDPForm.toCBF
+
+/- **The Solution Format**
+Now we send it to MOSEK and get a solution back.
+Notes:
+* See `solver/test.sol`.
+-/
+
+#check Sol.Result
+
+/- **Generating the Certificate**
+The dual of `problem` is the following optimization problem:
+    maximize        yb
+    subject to  C = yA + Z
+                  Z ≽ 0
+If the primal problem is feasible and bounded, MOSEK will give us a feasible 
+point (y, Z).
+Theorem [Weak Duality]. If X is primal-feasible and (y, Z) is dual-feasible, 
+then yb ≤ ⟨C, X⟩
+Proof.
+    ⟨C, X⟩ = tr(C ⬝ X)
+       ... = tr((yA + Z) ⬝ X)           
+       ... = y tr(A ⬝ X) + tr(Z ⬝ X) 
+       ... = y ⟨A, X⟩ + ⟨Z, X⟩
+       ... = yb + ⟨Z, X⟩
+    We have that ⟨Z, X⟩ ≥ 0 as Z, X ≽ 0. Therefore, yb ≤ ⟨C, X⟩. ∎
+Theorem [Strong Duality]. If, moreover ⟨C, X⟩ ≤ yb, then the X is an optimal 
+solution.
+Proof.
+    If X' is any other feasible point, by weak duality, yb ≤ ⟨C, X'⟩. By 
+    assumption (and le_trans) it follows that ⟨C, X⟩ ≤ ⟨C, X'⟩. ∎
+The certificate consists of a primal-feasible point X, a dual-feasible point 
+(y, Z) such that ⟨C, X⟩ ≤ yb.
+-/
+
+open ProofBuilder
+
+#check Certificate
+
+/- **The `sdp_solve` Tactic**
+Putting everything together:
+    `Minimization` --> `SDPForm` --> `CBF` - MOSEK -> `Sol` --> `Solution` 
+Feasibility checks are performed with floats using epsilon-equality. For PSD 
+constraints, we use Choleksy. They are all proved by `nativeDecide`.
+Notes:
+* We cheat! The certificate is checked but `Certificate.toSolution` is sorry'd.
+* Also try C = [[1,1],[1,0]].
+-/
+
+noncomputable def solutionProblem : Solution problem := by 
+  simp only [problem]; sdp_solve
+
+noncomputable def solutionProblemSteps : Solution problem := by 
+  simp only [problem]; sdp_solve_aux; generate_certificate
+
+def M : Matrix (Fin 6) (Fin 6) Float := 
+    fun i j => #[
+        #[162.567854, 0.000152, -0.641777, -0.002118, 0.035966, -0.539276],
+        #[0.000152, 0.291377, -0.012871, -0.038565, -0.015640, 0.004843],
+        #[-0.641777, -0.012871, 0.037331, 0.009107, -0.001111, -0.014027],
+        #[-0.002118, -0.038565, 0.009107, 0.098373, 0.001268, -0.005323],
+        #[0.035966, -0.015640, -0.001111, 0.001268, 0.010215, 0.000490],
+        #[-0.539276, 0.004843, -0.014027, -0.005323, 0.000490, 0.027336]][i][j]
+
+lemma PSDM : Matrix.Computable.posDef M := by nativeDecide
+
+/- **Reals and Floats**
+The `realToFloat` procedure takes "any" real-valued expression and gives us its 
+floating-point equivalent.
+Notes:
+* No executable code for `Nat.decidableEq` from mathbin.
+-/
+
+#realToFloat Real.exp 1
+
+#realToFloat @Minimization.mk ℝ ℝ id (fun x => x <= 0)
+
+#realToFloat A
+
+/- **Conclusion and Future Work** 
+The priority right now is to make sure that any conic program can be encoded. 
+The next question is: what do we do with the certificate? There are different 
+levels of rigour:
+0. Do nothing, trust the solver.
+1. Check that things are almost equal and almost PSD (some theory needed here).
+2. Small axiomatization of errors introduced by float operations + lemmas.
+3. Full formalization of IEEE standard (volunteers?) + many lemmas.
+We're currently at 0.5. With rigour = 1, we wouldn't have a proof but we could 
+give some confidence interval and bounds. With rigour ≥ 2, we could have 
+something like ValidSDP (https://github.com/validsdp/validsdp).
+If the problem is rational, there are tricks to recover rational certificates 
+from the floating point certificate. 
+A potential user: https://www.math.ucdavis.edu/~romik/movingsofa/.
+                            THANK YOU !
+-/
+</code></pre>
+
+</body>
+</html>
