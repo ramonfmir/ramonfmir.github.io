@@ -1,4 +1,4 @@
-<html lang="en" style="min-width: 515px;">
+<html lang="en">
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -7,6 +7,14 @@
 
   <link rel="icon" type="image/png" href="about/favicon.png">
   <link rel="stylesheet" href="https://latex.now.sh/style.css">
+
+  <style>
+    @media (max-width:515px) {
+      img#me {
+        display: none;
+      }
+    }
+  </style>
 
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
@@ -19,7 +27,7 @@
   <main>
     <article>
       <figure>
-        <img src="about/me.png" style="margin-left: 20px;"
+        <img src="about/me.png" id="me" style="margin-left: 20px;"
           loading="lazy" alt="RFM" width="200" height="200" align="right" />
       </figure>
       <h2>About me</h2>
@@ -76,47 +84,66 @@
         <table style="border: hidden; width: 100%;">
           <tbody>
             <tr>
-              <td>Verified optimization for hybrid systems <a href="talks/22-09-cicm.pdf" target="_blank">⭳</a></td>
-              <td>CICM 2022 </td>
               <td>09/22</td>
+              <td>Verified optimization for hybrid systems (<a href="talks/22-09-cicm.pdf" target="_blank">slides</a>)</td>
+              <td>CICM 2022 </td>
             </tr>
             <tr>
-              <td>Connecting Lean to a convex solver <a href="talks/22-05-cmu-pitt.html" target="_blank">⭳</a></td>
-              <td>CMU-Pitt seminar</td>
               <td>05/22</td>
+              <td>Connecting Lean to a convex solver (<a href="talks/22-05-cmu-pitt.html" target="_blank">demo</a>)</td>
+              <td>CMU-Pitt seminar</td>
             </tr>
             <tr>
-              <td>Simulation vs proof <a href="talks/22-02-aiml.pdf" target="_blank">⭳</a></td>
-              <td>AIML 3 minute thesis</td>
               <td>02/22</td>
+              <td>Simulation vs proof (<a href="talks/22-02-aiml.pdf" target="_blank">slides</a>)</td>
+              <td>AIML 3 minute thesis</td>
             </tr>
             <tr>
-              <td>Verified semidefinite programming <a href="talks/21-10-aiml.pdf" target="_blank">⭳</a></td>
-              <td>AIML seminar </td>
               <td>10/21</td>
+              <td>Verified semidefinite programming (<a href="talks/21-10-aiml.pdf" target="_blank">slides</a>)</td>
+              <td>AIML seminar </td>
             </tr>
             <tr>
-              <td>Schemes in Lean <a href="talks/19-06-thesis.pdf" target="_blank">⭳</a></td>
-              <td>ICL thesis defense</td>
               <td>06/19</td>
+              <td>Schemes in Lean (<a href="talks/19-06-thesis.pdf" target="_blank">slides</a>)</td>
+              <td>ICL thesis defense</td>
             </tr>
             <tr>
-              <td>Verification of data layout transformations <a href="talks/18-09-inria.pdf" target="_blank">⭳</a></td>
-              <td>Inria-Paris seminar</td>
               <td>09/18</td>
+              <td>Verification of data layout transformations (<a href="talks/18-09-inria.pdf" target="_blank">slides</a>)</td>
+              <td>Inria-Paris seminar</td>
             </tr>
           </tbody>
         </table>
       </div>
 
       <h2>Teaching assistantships</h2>
-      <ul>
-        <li>2022-23: Algorithms and data structures, Introduction to computation.</li>
-        <li>2021-22: Formal verification, Introduction to computation.</li>
-        <li>2020-21: Reasoning and agents, Algorithms and data structures.</li>
-        <li>2018-19: Logic, Reasoning about programs.</li>
-        <li>2017-18: Logic, Reasoning about programs.</li>
-      </ul>
+      <div class="scroll-wrapper">
+        <table style="border: hidden; width: 100%;">
+          <tbody>
+            <tr>
+              <td>2022-23</td>
+              <td>Algorithms and data structures, Introduction to computation</td>
+            </tr>
+            <tr>
+              <td>2021-22</td>
+              <td>Formal verification, Introduction to computation</td>
+            </tr>
+            <tr>
+              <td>2020-21</td>
+              <td>Reasoning and agents, Algorithms and data structures</td>
+            </tr>
+            <tr>
+              <td>2018-19</td>
+              <td>Logic, Reasoning about programs</td>
+            </tr>
+            <tr>
+              <td>2017-18</td>
+              <td>Logic, Reasoning about programs</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </article>
   </main>
 </body>
